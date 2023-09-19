@@ -8,24 +8,6 @@ import bcryptjs from 'bcryptjs'
 
 connect()
 
-export async function POST(request: NextRequest) {
-    try {
-        const {username, password} = await request.body.json()
-
-        const salt = await bcryptjs.genSalt(10)
-        const hashedPassword = await bcryptjs.hash(password, salt)
-
-        const user = await User.create({
-            username,
-            password: hashedPassword
-        })
-
-        return NextResponse.redirect('/api/users/login')
-    } catch(error) {
-        console.log(error)
-        return NextResponse.next()
-    }
-}
 
 export async function POST(request: NextRequest) {
     try {
